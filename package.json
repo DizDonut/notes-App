@@ -12,6 +12,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
+    "json-server": "^0.12.1",
     "node-fetch": "^1.7.3"
   }
 }

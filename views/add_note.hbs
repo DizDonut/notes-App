@@ -1,0 +1,48 @@
+<div class="container">
+    <form id="myForm">
+        <div class="form_item">
+            <label>Owner of note:</label>
+            <input type="text" id="owner" name="owner">
+        </div>
+
+        <div class="form_item">
+            <label>Title of the note:</label>
+            <input type="text" id="title" name="title">
+        </div>
+
+        <div class="form_item">
+            <label>Message:</label>
+            <textarea id="message" name="message"></textarea>
+        </div>
+        <button type="submit"> Add note </button>
+    </form>
+</div>
+
+<script>
+
+  $("#myForm").on("submit", (event)=>{
+    event.preventDefault();
+
+    const jsonData = {
+      owner:$("#owner").val().trim(),
+      title:$("#title").val().trim(),
+      message:$("#message").val().trim()
+    }
+
+    $.ajax({
+      type: "POST",
+      url: "/api/add_note",
+      data: JSON.stringify(jsonData),
+      contentType: "application/json",
+      success: (data, status)=>{
+        window.location.href = "/";
+      },
+      error: ()=>{
+        alert("Problem");
+      }
+    })
+
+  })
+
+
+</script>
