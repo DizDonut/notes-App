@@ -46,6 +46,18 @@ app.get("/add_note", (req, res)=>{
   res.render("add_note");
 })
 
+app.get("/edit_note/:id", (req, res) => {
+
+  fetch(`http://localhost:3004/messages/${req.params.id}`)
+    .then(response => {
+      response.json().then(json => {
+        res.render("edit_note", {
+          articles: json
+        });
+      })
+    })
+})
+
 /*
   Post Routes
 */
@@ -73,9 +85,25 @@ app.delete("/api/delete/:id", (req, res)=>{
   }).then(response => {
     res.status(200).send();
   })
-
 })
 
+/*
+  Update Routes
+*/
+app.patch("/api/edit_note/:id", jsonParser, (req, res) => {
+
+  const id = req.params.id;
+  fetch(`http://localhost:3004/messages/${id}`,{
+    method: "PATCH",
+    body: JSON.stringify(req.body),
+    headers:{
+      "Content-Type": "application/json"
+    }
+  }).then(response => {
+    res.status(200).send();
+  })
+  
+})
 
 //create instance of port
 const PORT = process.env.PORT || 3000;
